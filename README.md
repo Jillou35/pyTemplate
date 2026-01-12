@@ -1,4 +1,4 @@
-# Python Zero Friction Cookiecutter Template
+# PyTemplate
 
 A modern, "Zero Friction" and "Full Quality" Cookiecutter template for Python 3.12+ projects.
 
@@ -10,10 +10,10 @@ Designed to get you up and running instantly with a production-ready development
 - **Linting & Formatting**: [Ruff](https://github.com/astral-sh/ruff)
 - **Static Typing**: [MyPy](https://mypy-lang.org/) (Strict mode)
 - **Testing**: [Pytest](https://docs.pytest.org/) + coverage
-- **Security**: [Ruff](https://docs.astral.sh/ruff/rules/#flake8-bandit-s) (Bandit rules)
+- **Security**: [Ruff](https://docs.astral.sh/ruff/rules/#flake8-bandit-s) (Bandit rules) + [pip-audit](https://github.com/psf/pip-audit) (dependency audit)
 - **Documentation**: [Interrogate](https://interrogate.readthedocs.io/)
 - **CI/CD**: GitHub Actions workflow included
-- **Automation**: Makefile for common tasks
+- **Automation**: [Taskipy](https://taskipy.readthedocs.io/)
 
 ## 📦 Usage
 
@@ -43,11 +43,11 @@ Once your project is generated, you can use `uv` directly:
 
 ```bash
 cd <your-project-slug>
-uv sync          # Install dependencies
-uv run task check # Run all the following checks
+uv sync            # Install dependencies
+uv run task check  # Run all the following checks
 uv run task format # Run formatting
-uv run task lint  # Run linting
-uv run task audit # Run security audit
-uv run task docs  # Run documentation checks
-uv run task test  # Run tests individually
+uv run task lint   # Run linting
+uv run task audit  # Run security audit
+uv run task docs   # Run documentation checks
+uv run task test   # Run tests individually
 ```
