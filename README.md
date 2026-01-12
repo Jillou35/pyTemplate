@@ -10,10 +10,10 @@ Designed to get you up and running instantly with a production-ready development
 - **Linting & Formatting**: [Ruff](https://github.com/astral-sh/ruff)
 - **Static Typing**: [MyPy](https://mypy-lang.org/) (Strict mode)
 - **Testing**: [Pytest](https://docs.pytest.org/) + coverage
-- **Security**: [Ruff](https://docs.astral.sh/ruff/rules/#flake8-bandit-s) (Bandit rules) + [pip-audit](https://github.com/psf/pip-audit) (dependency audit)
+- **Security**: [Ruff](https://docs.astral.sh/ruff/rules/#flake8-bandit-s) (Bandit rules) + [pip-audit](https://github.com/pypa/pip-audit) (dependency audit)
 - **Documentation**: [Interrogate](https://interrogate.readthedocs.io/)
 - **CI/CD**: GitHub Actions workflow included
-- **Automation**: [Taskipy](https://taskipy.readthedocs.io/)
+- **Automation**: [Taskipy](https://github.com/taskipy/taskipy)
 
 ## 📦 Usage
 
