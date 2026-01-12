@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v1
+
+      - name: Set up Python {{ cookiecutter.python_version }}
+        run: uv python install {{ cookiecutter.python_version }}
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Lint and Format
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+          uv run mypy .
+          uv run bandit -c pyproject.toml -r .
+          uv run pip-audit .
+
+      - name: Run tests with coverage
+        run: uv run pytest
+
+      - name: Generate Coverage Badge
+        if: github.ref == 'refs/heads/main'
+        run: |
+          uv run coverage-badge -o coverage.svg -f
+
+      - name: Upload Coverage Badge
+        if: github.ref == 'refs/heads/main'
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: badges
+          FOLDER: .
+          GITHUB_TOKEN: "{% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}"
+          TARGET_DIR: .
+          MESSAGE: "Update coverage badge"
+          FILES: coverage.svg

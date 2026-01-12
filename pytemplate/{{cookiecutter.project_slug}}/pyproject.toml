@@ -1,0 +1,92 @@
+[project]
+name = "{{ cookiecutter.project_slug }}"
+version = "0.1.0"
+description = "{{ cookiecutter.description }}"
+readme = "README.md"
+authors = [
+    { name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.email }}" }
+]
+requires-python = ">={{ cookiecutter.python_version }}"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "mypy>=1.8.0",
+    "ruff>=0.1.0",
+    "interrogate>=1.5.0",
+    "coverage-badge>=1.1.0",
+    "pip-audit>=2.7.0",
+    "taskipy>=1.12.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/{{ cookiecutter.project_slug }}"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py{{ cookiecutter.python_version.replace('.', '') }}"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+    "S",  # flake8-bandit
+]
+ignore = ["S101"] # flake8-bandit assert is not allowed
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.mypy]
+python_version = "{{ cookiecutter.python_version }}"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--cov=src/{{ cookiecutter.project_slug }} --cov-report=term-missing --cov-report=xml"
+testpaths = [
+    "tests",
+]
+
+[tool.interrogate]
+ignore-init-module = true
+ignore-init-method = true
+ignore-module = true
+fail-under = 95
+exclude = ["setup.py", "docs", "tests"]
+
+[tool.taskipy.tasks]
+format = "ruff format . && ruff check --fix ."
+lint = "ruff check . && mypy src/"
+audit = "pip-audit ."
+docs = "interrogate -v src/"
+test = "pytest"
+check = "task format && task lint && task audit && task docs && task test"
