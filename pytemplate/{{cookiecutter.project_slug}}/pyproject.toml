@@ -29,7 +29,7 @@ dev = [
 packages = ["src/{{ cookiecutter.project_slug }}"]
 
 [tool.ruff]
-line-length = 88
+line-length = 120
 target-version = "py{{ cookiecutter.python_version.replace('.', '') }}"
 
 [tool.ruff.lint]
@@ -90,3 +90,6 @@ audit = "pip-audit ."
 docs = "interrogate -v src/"
 test = "pytest"
 check = "task format && task lint && task audit && task docs && task test"
+build = "uv build"
+test-deploy = "uv publish --publish-url https://test.pypi.org/legacy/"
+deploy = "uv publish"

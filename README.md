@@ -50,4 +50,7 @@ uv run task lint   # Run linting
 uv run task audit  # Run security audit
 uv run task docs   # Run documentation checks
 uv run task test   # Run tests individually
+uv run task build  # Build the package
+uv run task test-deploy # Upload to TestPyPI
+uv run task deploy # Upload to PyPI
 ```
