@@ -2,32 +2,34 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
-      - id: trailing-whitespace      # Delete trailing whitespace
-      - id: end-of-file-fixer        # Add a newline at the end of files
-      - id: check-yaml               # Check YAML syntax
-      - id: check-added-large-files  # Prevent committing large files
-  
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.14
-    hooks:
-      - id: ruff
-        args: [--fix]
-      - id: ruff-format
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
+  - repo: local
     hooks:
-      - id: mypy
-
-  - repo: https://github.com/econchick/interrogate
-    rev: 1.7.0
-    hooks:
-      - id: interrogate
-        args: [src]
+      - id: format
+        name: format
+        entry: python -m uv run task format
+        language: system
         pass_filenames: false
-  
-  - repo: https://github.com/pypa/pip-audit
-    rev: v2.7.0
-    hooks:
-      - id: pip-audit
-
+        types: [python]
+      - id: lint
+        name: lint
+        entry: python -m uv run task lint
+        language: system
+        pass_filenames: false
+        types: [python]
+      - id: audit
+        name: audit
+        entry: python -m uv run task audit
+        language: system
+        pass_filenames: false
+        files: ^(pyproject\.toml|uv\.lock)$
+      - id: docs
+        name: docs
+        entry: python -m uv run task docs
+        language: system
+        pass_filenames: false
+        types: [python]

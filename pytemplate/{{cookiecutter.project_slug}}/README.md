@@ -77,6 +77,24 @@ Check Documentation:
 uv run task docs
 ```
 
+Build package:
+
+```bash
+uv run task build
+```
+
+Deploy to PyPI:
+
+```bash
+uv run task deploy
+```
+
+Deploy to TestPyPI:
+
+```bash
+uv run task test-deploy
+```
+
 ## 📄 License
 
 This project is licensed under the MIT License.
