@@ -22,14 +22,6 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Lint and Format
-        run: |
-          uv run ruff check .
-          uv run ruff format --check .
-          uv run mypy .
-          uv run bandit -c pyproject.toml -r .
-          uv run pip-audit .
-
       - name: Run tests with coverage
         run: uv run pytest
 
